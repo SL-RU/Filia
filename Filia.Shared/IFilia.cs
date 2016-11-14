@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Filia.Shared;
 
 namespace Filia.Server
 {
@@ -10,6 +11,10 @@ namespace Filia.Server
     {
         event Action<string, string> MessageReceived;
 
-        void SendMessage(string nickname, string text);
+        void SendMessage(string text);
+
+        string GetAllData(Action<string> answer);
+
+        UserInformation GetUserInformation(string nickname);
     }
 }

@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -28,6 +29,13 @@ namespace Filia.Client
             {
                 ServerSession = serverSession;
                 ServerSession.FiliaProxy.MessageReceived += new Action<string, string>(MessageReceived);
+                textBlock.Text += "[RET] " + ServerSession.FiliaProxy.GetAllData(new Action<string>(s =>
+                {
+                    textBlock.Dispatcher.BeginInvoke(new Action(delegate()
+                    {
+                        textBlock.Text += "[DATA] " + s + "\n";
+                    }));
+                })) + "\n";
             }
             else
             {
@@ -45,7 +53,14 @@ namespace Filia.Client
 
         private void button_Click(object sender, RoutedEventArgs e)
         {
-            ServerSession.FiliaProxy.SendMessage(ServerSession.NickName, textBox.Text);
+            ServerSession.FiliaProxy.SendMessage(textBox.Text);
+        }
+
+        private void getinfo_Click(object sender, RoutedEventArgs e)
+        {
+             var v = ServerSession.FiliaProxy.GetUserInformation(textBox.Text);
+            MessageBox.Show(string.Format("id: {0}\nnick: {1}\nname: {2}\nrole: {3}\nimg {4}", v.Id, v.Nickname, v.Realname, v.Role, v.UploadImages), "v",
+                MessageBoxButton.OK);
         }
     }
 }

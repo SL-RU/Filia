@@ -47,7 +47,7 @@ namespace FiTestClient
             }
 
             connection.CallInterceptors.For<IFilia>().Add(
-                (IFilia chat, string nickname, string message) => chat.SendMessage(nickname, message),
+                (IFilia chat, string nickname, string message) => chat.SendMessage(message),
                 (data, nickname, message) =>
                 {
                     if (message.Contains("fuck") || message.Contains("sex"))
@@ -67,7 +67,7 @@ namespace FiTestClient
             while (text.ToLower() != "quit")
             {
                 text = System.Console.ReadLine();
-                chatProxy.SendMessage(_nickName, text);
+                chatProxy.SendMessage(text);
             }
 
             chatProxy.MessageReceived -= new Action<string, string>(chatProxy_MessageReceived);

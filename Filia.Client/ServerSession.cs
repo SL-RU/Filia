@@ -44,7 +44,8 @@ namespace Filia.Client
 
             try
             {
-                _connection = new ZyanConnection("tcpex://" + _serverAdress + "/Filia", _protocol, credentials, false, true);
+                _connection = new ZyanConnection("tcpex://" + _serverAdress + "/Filia", _protocol, credentials, false,
+                    true);
             }
             catch (SecurityException ex)
             {
@@ -52,6 +53,10 @@ namespace Filia.Client
                 System.Console.ReadLine();
                 _isLoggedIn = false;
                 return false;
+            }
+            catch (Exception)
+            {
+                
             }
 
             _connection.CallInterceptionEnabled = true;
@@ -67,6 +72,7 @@ namespace Filia.Client
         public bool Logout()
         {
             //_filiaProxy.MessageReceived -= new Action<string, string>(FiliaRecieved);
+            if(_isLoggedIn)
             _connection.Dispose();
 
             return true;

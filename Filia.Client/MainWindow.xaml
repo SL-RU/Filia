@@ -7,9 +7,12 @@
         mc:Ignorable="d"
         Title="MainWindow" Height="350" Width="525">
     <Grid>
-        <TextBox x:Name="textBox" HorizontalAlignment="Left" Height="23" Margin="101,65,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="120"/>
-        <Button x:Name="button" Content="send" HorizontalAlignment="Left" Margin="226,68,0,0" VerticalAlignment="Top" Width="75" Click="button_Click"/>
-        <TextBlock x:Name="textBlock" HorizontalAlignment="Left" Margin="101,100,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Height="185" Width="327"/>
+        <TextBox x:Name="textBox" HorizontalAlignment="Left" Height="23" TextWrapping="Wrap" VerticalAlignment="Top" Width="394"/>
+        <Button x:Name="button" Content="send" HorizontalAlignment="Left" Margin="394,-2,0,0" VerticalAlignment="Top" Width="47" Click="button_Click" Height="25"/>
+        <ScrollViewer Margin="0,23,0,0">
+            <TextBlock x:Name="textBlock" TextWrapping="Wrap"/>
+        </ScrollViewer>
+        <Button x:Name="getinfo" Content="get info" HorizontalAlignment="Left" Margin="441,-2,0,0" VerticalAlignment="Top" Width="66" Height="25" Click="getinfo_Click"/>
 
     </Grid>
 </Window>
