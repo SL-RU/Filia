@@ -5,8 +5,6 @@ VisualStudioVersion = 14.0.25420.1
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Filia.Server", "Filia.Server\Filia.Server.csproj", "{6530C5C1-CF07-498F-92BE-CE3842437995}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FiTestClient", "FiTestClient\FiTestClient.csproj", "{7C496087-2398-40DE-8C29-6DDCA851EEE8}"
-EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Filia.Shared", "Filia.Shared\Filia.Shared.csproj", "{5816AF92-CE41-42BB-A3CF-B02FB953F25D}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Filia.Client", "Filia.Client\Filia.Client.csproj", "{8B7D66B4-BB47-4D34-8157-8BB11F5489A6}"
@@ -21,10 +19,6 @@ Global
 		{6530C5C1-CF07-498F-92BE-CE3842437995}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{6530C5C1-CF07-498F-92BE-CE3842437995}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{6530C5C1-CF07-498F-92BE-CE3842437995}.Release|Any CPU.Build.0 = Release|Any CPU
-		{7C496087-2398-40DE-8C29-6DDCA851EEE8}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{7C496087-2398-40DE-8C29-6DDCA851EEE8}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{7C496087-2398-40DE-8C29-6DDCA851EEE8}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{7C496087-2398-40DE-8C29-6DDCA851EEE8}.Release|Any CPU.Build.0 = Release|Any CPU
 		{5816AF92-CE41-42BB-A3CF-B02FB953F25D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{5816AF92-CE41-42BB-A3CF-B02FB953F25D}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{5816AF92-CE41-42BB-A3CF-B02FB953F25D}.Release|Any CPU.ActiveCfg = Release|Any CPU

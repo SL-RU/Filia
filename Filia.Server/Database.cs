@@ -36,7 +36,12 @@ namespace Filia.Server
             DbConnection.Close();
         }
 
-        public void NewUser(DbUserData user)
+        /// <summary>
+        /// Add new user to DB
+        /// Use FiliaAuthProvider.CreateUser instead
+        /// </summary>
+        /// <returns></returns>
+        public bool InsertNewUser(DbUserData user)
         {
             if(user == null)
                 throw new Exception("Null user object");
@@ -50,6 +55,7 @@ namespace Filia.Server
 
             DbConnection.Insert(user);
             DbConnection.Commit();
+            return true;
         }
 
         public List<DbUserData> GetAllUsers()

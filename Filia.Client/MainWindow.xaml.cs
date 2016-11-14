@@ -13,6 +13,7 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using Filia.Shared;
 
 namespace Filia.Client
 {
@@ -22,20 +23,15 @@ namespace Filia.Client
     public partial class MainWindow : Window
     {
         public ServerSession ServerSession;
+
         public MainWindow(ServerSession serverSession)
         {
             InitializeComponent();
             if (serverSession != null && serverSession.IsLoggedIn)
             {
                 ServerSession = serverSession;
-                ServerSession.FiliaProxy.MessageReceived += new Action<string, string>(MessageReceived);
-                textBlock.Text += "[RET] " + ServerSession.FiliaProxy.GetAllData(new Action<string>(s =>
-                {
-                    textBlock.Dispatcher.BeginInvoke(new Action(delegate()
-                    {
-                        textBlock.Text += "[DATA] " + s + "\n";
-                    }));
-                })) + "\n";
+                UsersStatus = new Dictionary<string, bool>(ServerSession.FiliaProxy.GetUsersOnlineStatus());
+                DataGrid.ItemsSource = UsersStatus;
             }
             else
             {
@@ -43,24 +39,18 @@ namespace Filia.Client
             }
         }
 
-        private void MessageReceived(string s, string s1)
+        public Dictionary<string, bool> UsersStatus { get; set; }
+
+        private void getinfo_Click(object sender, RoutedEventArgs e)
         {
-            textBlock.Dispatcher.BeginInvoke(new Action(delegate()
-            {
-                textBlock.Text += "[" + s + "] " + s1 + "\n";
-            }));
         }
 
         private void button_Click(object sender, RoutedEventArgs e)
         {
-            ServerSession.FiliaProxy.SendMessage(textBox.Text);
-        }
-
-        private void getinfo_Click(object sender, RoutedEventArgs e)
-        {
-             var v = ServerSession.FiliaProxy.GetUserInformation(textBox.Text);
-            MessageBox.Show(string.Format("id: {0}\nnick: {1}\nname: {2}\nrole: {3}\nimg {4}", v.Id, v.Nickname, v.Realname, v.Role, v.UploadImages), "v",
-                MessageBoxButton.OK);
+            if (nick.Text.Length > 0 && nick.Text.Length <= 16 && pswd.Text.Length > 0 && pswd.Text.Length <= 16)
+                ServerSession.FiliaProxy.CreateNewUser(nick.Text, pswd.Text, (UserRole) comboBox.SelectedIndex);
+            UsersStatus = new Dictionary<string, bool>(ServerSession.FiliaProxy.GetUsersOnlineStatus());
+            DataGrid.ItemsSource = UsersStatus;
         }
     }
 }

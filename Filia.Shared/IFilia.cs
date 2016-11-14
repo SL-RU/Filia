@@ -9,12 +9,13 @@ namespace Filia.Server
 {
     public interface IFilia
     {
-        event Action<string, string> MessageReceived;
-
-        void SendMessage(string text);
-
         string GetAllData(Action<string> answer);
 
         UserInformation GetUserInformation(string nickname);
+
+        Dictionary<string, bool> GetUsersOnlineStatus();
+
+        bool CreateNewUser(string nickname, string password, UserRole role);
+
     }
 }

@@ -7,12 +7,27 @@
         mc:Ignorable="d"
         Title="MainWindow" Height="350" Width="525">
     <Grid>
-        <TextBox x:Name="textBox" HorizontalAlignment="Left" Height="23" TextWrapping="Wrap" VerticalAlignment="Top" Width="394"/>
-        <Button x:Name="button" Content="send" HorizontalAlignment="Left" Margin="394,-2,0,0" VerticalAlignment="Top" Width="47" Click="button_Click" Height="25"/>
-        <ScrollViewer Margin="0,23,0,0">
-            <TextBlock x:Name="textBlock" TextWrapping="Wrap"/>
-        </ScrollViewer>
-        <Button x:Name="getinfo" Content="get info" HorizontalAlignment="Left" Margin="441,-2,0,0" VerticalAlignment="Top" Width="66" Height="25" Click="getinfo_Click"/>
-
+        <Button x:Name="getinfo" Content="get info" HorizontalAlignment="Left" Margin="451,-2,0,0" VerticalAlignment="Top" Width="66" Height="25" Click="getinfo_Click"/>
+        <DataGrid x:Name="DataGrid" HorizontalAlignment="Stretch"
+                  VerticalAlignment="Stretch"
+                  AutoGenerateColumns="False"
+                  Margin="0,28,0,0">
+            <DataGrid.Columns>
+                <DataGridTextColumn Header="Nickname" Binding="{Binding Key, Mode=OneWay}" />
+                <DataGridCheckBoxColumn Header="Online" Binding="{Binding Value, Mode=OneWay}" />
+            </DataGrid.Columns>
+        </DataGrid>
+        <Button x:Name="button" Content="Add user" HorizontalAlignment="Left" VerticalAlignment="Top" Width="75" Margin="371,0,0,0" Height="23" Click="button_Click"/>
+        <ComboBox x:Name="comboBox" HorizontalAlignment="Left" Margin="246,-2,0,0" VerticalAlignment="Top" Width="120" Height="25" SelectedIndex="3">
+            <ComboBoxItem Content="Admin"/>
+            <ComboBoxItem Content="Moderator"/>
+            <ComboBoxItem Content="Translator"/>
+            <ComboBoxItem Content="Editor"/>
+            <ComboBoxItem Content="Reader"/>
+            <ComboBoxItem Content="Blocked"/>
+            
+        </ComboBox>
+        <TextBox x:Name="nick" HorizontalAlignment="Left" Height="23" Margin="1,0,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="120"/>
+        <TextBox x:Name="pswd" HorizontalAlignment="Left" Height="23" Margin="121,0,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="120"/>
     </Grid>
 </Window>

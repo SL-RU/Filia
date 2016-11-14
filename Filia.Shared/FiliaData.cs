@@ -28,6 +28,7 @@ namespace Filia.Shared
         string Email { get; }
         UserRole Role { get; }
         bool UploadImages { get; }
+        bool Online { get; }
     }
 
     public interface IPhraseData
@@ -57,7 +58,7 @@ namespace Filia.Shared
     {
 
         public UserInformation(int id, string nickname, string realname, string about, string email, UserRole role,
-            bool uploadImages)
+            bool uploadImages, bool online)
         {
             Id = id;
             Nickname = nickname;
@@ -66,6 +67,7 @@ namespace Filia.Shared
             Email = email;
             Role = role;
             UploadImages = uploadImages;
+            Online = online;
         }
 
         public int Id { get; private set; }
@@ -75,6 +77,7 @@ namespace Filia.Shared
         public string Email { get; private set; }
         public UserRole Role { get; private set; }
         public bool UploadImages { get; private set; }
+        public bool Online { get; private set; }
     }
 
     [Serializable]

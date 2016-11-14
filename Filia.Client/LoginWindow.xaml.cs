@@ -36,6 +36,7 @@ namespace Filia.Client
                 LoginButton.IsEnabled = true;
                 LogoutButton.IsEnabled = false;
             }
+            LoginBox.Focus();
         }
 
         public LoginWindow()
@@ -81,6 +82,34 @@ namespace Filia.Client
             }
             LoginButton.IsEnabled = true;
             LogoutButton.IsEnabled = false;
+        }
+
+        private void ServerBox_PreviewKeyDown(object sender, KeyEventArgs e)
+        {
+            if (e.Key == Key.Enter)
+            {
+                TextBox s = e.Source as TextBox;
+                if (s != null)
+                {
+                    s.MoveFocus(new TraversalRequest(FocusNavigationDirection.Next));
+                }
+
+                e.Handled = true;
+            }
+        }
+
+        private void PasswordBox_PreviewKeyDown(object sender, KeyEventArgs e)
+        {
+            if (e.Key == Key.Enter)
+            {
+                PasswordBox s = e.Source as PasswordBox;
+                if (s != null)
+                {
+                    s.MoveFocus(new TraversalRequest(FocusNavigationDirection.Next));
+                }
+
+                e.Handled = true;
+            }
         }
     }
 }

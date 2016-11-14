@@ -1,6 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
+using System.Runtime.Serialization.Formatters.Binary;
 using System.Text;
 using System.Threading.Tasks;
 using Filia.Shared;
@@ -31,6 +33,9 @@ namespace Filia.Server
         public UserRole Role { get; set; }
 
         public bool UploadImages { get; set; }
+
+        [Ignore]
+        public bool Online { get; set; }
     }
 
     public class DbPhraseData : IPhraseData
@@ -43,6 +48,30 @@ namespace Filia.Server
         public string Comment { get; set; }
         public string ImageUrl { get; set; }
         public string AuthorOfRevision { get; set; }
+        /// <summary>
+        /// Serialized ChangeHistory
+        /// </summary>
+        public byte[] ChangeHistoryData {
+            get
+            {
+                var formatter = new BinaryFormatter();
+                using (var stream = new MemoryStream())
+                {
+                    formatter.Serialize(stream, ChangeHistory);
+                    return stream.ToArray();
+                }
+            }
+            set
+            {
+                var formatter = new BinaryFormatter();
+                using (var stream = new MemoryStream(value))
+                {
+                    ChangeHistory = (PhraseChangeHistory)formatter.Deserialize(stream);
+                }
+            } 
+        }
+
+
         [Ignore]
         public PhraseChangeHistory ChangeHistory { get; set; }
     }

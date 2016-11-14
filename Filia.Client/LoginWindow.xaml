@@ -15,7 +15,7 @@
                     <ColumnDefinition Width="*"/>
                 </Grid.ColumnDefinitions>
                 <Label Content="Server" Width="100"/>
-                <TextBox x:Name="ServerBox" TextWrapping="Wrap" Text="localhost:14676" Grid.Column="1"/>
+                <TextBox x:Name="ServerBox" TextWrapping="Wrap" Text="localhost:14676" Grid.Column="1" TabIndex="0" PreviewKeyDown="ServerBox_PreviewKeyDown"/>
             </Grid>
             <Grid>
                 <Grid.ColumnDefinitions>
@@ -23,7 +23,7 @@
                     <ColumnDefinition Width="*"/>
                 </Grid.ColumnDefinitions>
                 <Label Content="Login" Width="100"/>
-                <TextBox x:Name="LoginBox" TextWrapping="Wrap" Grid.Column="1"/>
+                <TextBox x:Name="LoginBox" TextWrapping="Wrap" Grid.Column="1" TabIndex="1"  PreviewKeyDown="ServerBox_PreviewKeyDown"/>
             </Grid>
             <Grid>
                 <Grid.ColumnDefinitions>
@@ -31,15 +31,15 @@
                     <ColumnDefinition Width="*"/>
                 </Grid.ColumnDefinitions>
                 <Label Content="Password" Width="100"/>
-                <PasswordBox x:Name="PasswordBox" Grid.Column="1"/>
+                <PasswordBox x:Name="PasswordBox" Grid.Column="1" TabIndex="2" PreviewKeyDown="PasswordBox_PreviewKeyDown" />
             </Grid>
             <Grid>
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition Width="*"/>
                     <ColumnDefinition Width="*"/>
                 </Grid.ColumnDefinitions>
-                <Button x:Name="LoginButton" Content="Login" Click="LoginButton_Click"/>
-                <Button x:Name="LogoutButton" Content="Logout"  Grid.Column="1" Click="LogoutButton_Click"/>
+                <Button x:Name="LoginButton" Content="Login" Click="LoginButton_Click" TabIndex="3"/>
+                <Button x:Name="LogoutButton" Content="Logout"  Grid.Column="1" Click="LogoutButton_Click" TabIndex="4"/>
             </Grid>
         </StackPanel>
 
