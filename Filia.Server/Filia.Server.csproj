@@ -67,6 +67,7 @@
   <ItemGroup>
     <Compile Include="Database.cs" />
     <Compile Include="DbData.cs" />
+    <Compile Include="FiliaUser.cs" />
     <Compile Include="Filia.cs" />
     <Compile Include="FiliaAuthProvider.cs" />
     <Compile Include="Program.cs" />

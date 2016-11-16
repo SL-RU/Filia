@@ -1,6 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.Linq;
+using System.Reflection;
+using System.Runtime.CompilerServices;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -80,6 +83,29 @@ namespace Filia.Shared
         public bool Online { get; private set; }
     }
 
+
+    [Serializable]
+    public class ShortUserInformation : PropertyCopier
+    {
+
+        public ShortUserInformation(int id, string nickname, string realname, UserRole role, bool online)
+        {
+            Id = id;
+            Nickname = nickname;
+            Realname = realname;
+            Role = role;
+            Online = online;
+        }
+
+        public int Id { get; private set; }
+        public string Nickname { get; private set; }
+        public string Realname { get; private set; }
+        public UserRole Role { get; private set; }
+        public bool Online { get; private set; }
+
+
+    }
+
     [Serializable]
     public class PhraseInformation : IPhraseData
     {
@@ -105,6 +131,7 @@ namespace Filia.Shared
         public string Comment { get; private set; }
         public string ImageUrl { get; private set; }
         public string AuthorOfRevision { get; private set; }
+
         /// <summary>
         /// Will be sended to client by request
         /// </summary>
@@ -152,5 +179,41 @@ namespace Filia.Shared
         public string Comment { get; private set; }
         public string ImageUrl { get; private set; }
         public string AuthorOfRevision { get; private set; }
+    }
+
+    /// <summary>
+    /// Helper for copying properties & notifications
+    /// </summary>
+    [Serializable]
+    public class PropertyCopier : INotifyPropertyChanged
+    {
+        public event PropertyChangedEventHandler PropertyChanged;
+
+        protected void OnPropertyChanged([CallerMemberName]string propertyName = null)
+        {
+            //C# 6 null-safe operator. No need to check for event listeners
+            //If there are no listeners, this will be a noop
+            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
+        }
+
+        public static void CopyProperties(object dest, object src)
+        {
+            foreach (
+                var item in TypeDescriptor.GetProperties(src).Cast<PropertyDescriptor>().Where(item => !item.IsReadOnly)
+                )
+            {
+                item.SetValue(dest, item.GetValue(src));
+            }
+        }
+
+        public void CopyProperties(object src)
+        {
+            foreach (var item in src.GetType().GetProperties())
+            {
+                var t = this.GetType().GetProperty(item.Name);
+                t.SetValue(this, item.GetValue(src, null), null);
+                PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(item.Name));
+            }
+        }
     }
 }

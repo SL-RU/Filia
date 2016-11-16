@@ -3,7 +3,9 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Text;
+using System.Threading;
 using System.Threading.Tasks;
+using System.Threading;
 using Filia.Shared;
 using Zyan.Communication;
 using Zyan.Communication.Protocols.Tcp;
@@ -17,13 +19,17 @@ namespace Filia.Server
             FiliaAuth = new FiliaAuthProvider(this);
             Database = new Database("db");
             Instance = this;
+            
+               
         }
 
         public FiliaAuthProvider FiliaAuth { get; private set; }
         public Database Database { get; private set; }
-        private TcpDuplexServerProtocolSetup Protocol;
-        private ZyanComponentHost Host;
         public static Server Instance { get; private set; }
+        public Filia Filia { get; private set; }
+
+        private TcpDuplexServerProtocolSetup _protocol;
+        private ZyanComponentHost _host;
 
         public void Start()
         {
@@ -40,24 +46,25 @@ namespace Filia.Server
 
             FiliaAuth.LoadUsers(Database.GetAllUsers());
 
-            Protocol = new TcpDuplexServerProtocolSetup(14676, FiliaAuth, true);
+            _protocol = new TcpDuplexServerProtocolSetup(14676, FiliaAuth, true);
 
-            Host = new ZyanComponentHost("Filia", Protocol);
-            Host.PollingEventTracingEnabled = true;
-            Host.ClientHeartbeatReceived += FiliaAuth.host_ClientHeartbeatReceived;
+            _host = new ZyanComponentHost("Filia", _protocol);
+            _host.PollingEventTracingEnabled = true;
+            _host.ClientHeartbeatReceived += FiliaAuth.host_ClientHeartbeatReceived;
 
-            Host.RegisterComponent<IFilia, Filia>(ActivationType.Singleton);
+            _host.RegisterComponent<IFilia, Filia>(ActivationType.Singleton);
+            _host.RegisterComponent<IFiliaUsers, FiliaUsers>(ActivationType.Singleton);
 
-            Host.ClientLoggedOn += FiliaAuth.HostOnClientLoggedOn;
+            _host.ClientLoggedOn += FiliaAuth.HostOnClientLoggedOn;
 
-            Host.ClientLoggedOff += FiliaAuth.HostOnClientLoggedOff;
+            _host.ClientLoggedOff += FiliaAuth.HostOnClientLoggedOff;
 
-            Host.ClientLogonCanceled += FiliaAuth.HostOnClientLogonCanceled;
+            _host.ClientLogonCanceled += FiliaAuth.HostOnClientLogonCanceled;
 
-            Host.ClientSessionTerminated += FiliaAuth.HostOnClientSessionTerminated;
+            _host.ClientSessionTerminated += FiliaAuth.HostOnClientSessionTerminated;
 
+            _host.EnableDiscovery();
 
-            Host.EnableDiscovery();
 
             Console.WriteLine("Chat server started.");
 
@@ -65,9 +72,10 @@ namespace Filia.Server
 
         public void Stop()
         {
-            Host.DisableDiscovery();
+            _host.DisableDiscovery();
             Database.CloseDb();
-            Host.Dispose();
+            _host.Dispose();
+
         }
 
         private void FirstStart()

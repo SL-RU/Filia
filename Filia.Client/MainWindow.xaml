@@ -5,16 +5,14 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:Filia.Client"
         mc:Ignorable="d"
-        Title="MainWindow" Height="350" Width="525">
+        Title="MainWindow" Height="350" Width="525" Closing="Window_Closing">
     <Grid>
         <Button x:Name="getinfo" Content="get info" HorizontalAlignment="Left" Margin="451,-2,0,0" VerticalAlignment="Top" Width="66" Height="25" Click="getinfo_Click"/>
         <DataGrid x:Name="DataGrid" HorizontalAlignment="Stretch"
                   VerticalAlignment="Stretch"
-                  AutoGenerateColumns="False"
-                  Margin="0,28,0,0">
+                  AutoGenerateColumns="True"
+                  Margin="0,28,0,0" MouseDoubleClick="DataGrid_MouseDoubleClick">
             <DataGrid.Columns>
-                <DataGridTextColumn Header="Nickname" Binding="{Binding Key, Mode=OneWay}" />
-                <DataGridCheckBoxColumn Header="Online" Binding="{Binding Value, Mode=OneWay}" />
             </DataGrid.Columns>
         </DataGrid>
         <Button x:Name="button" Content="Add user" HorizontalAlignment="Left" VerticalAlignment="Top" Width="75" Margin="371,0,0,0" Height="23" Click="button_Click"/>

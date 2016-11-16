@@ -35,6 +35,9 @@ namespace Filia.Server
 
         public DbUserData CreateNewUser(string nickname, string password, UserRole role)
         {
+            if (String.IsNullOrEmpty(nickname) || nickname.Length > 16 || String.IsNullOrEmpty(password) ||
+                password.Length > 32)
+                return null;
             if (Users.ContainsKey(nickname))
                 return null;
             DbUserData d = new DbUserData() {Nickname = nickname, Password = GetHash(password), Role = role};
@@ -83,7 +86,13 @@ namespace Filia.Server
             if (!Users.ContainsKey(nickname))
                 return new AuthResponseMessage()
                 {
-                    ErrorMessage = string.Format("Nickname doesn't exist."),
+                    ErrorMessage = string.Format("User with ickname doesn't exist."),
+                    Success = false
+                };
+            if(Users[nickname].Role == UserRole.Blocked || Users[nickname].Role == UserRole.Anonimus)
+                return new AuthResponseMessage()
+                {
+                    ErrorMessage = string.Format("User doesn't allowed"),
                     Success = false
                 };
             if (StructuralComparisons.StructuralEqualityComparer.Equals(Users[nickname].Password, GetHash(password)))
@@ -176,7 +185,15 @@ namespace Filia.Server
             return sha1.ComputeHash(Encoding.UTF8.GetBytes(s));
         }
 
+
         #endregion
 
+        public void OnlineCallback(string nick)
+        {
+            if (Users.ContainsKey(nick))
+            {
+                Users[nick].Online = true;
+            }
+        }
     }
 }

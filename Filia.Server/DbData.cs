@@ -35,7 +35,13 @@ namespace Filia.Server
         public bool UploadImages { get; set; }
 
         [Ignore]
-        public bool Online { get; set; }
+        public bool Online
+        {
+            get { return DateTime.Now.Subtract(_lastTimeOnline).TotalSeconds <= 5 && _lastTimeOnline != DateTime.MinValue; }
+            set { _lastTimeOnline = value ? DateTime.Now : DateTime.MinValue; }
+        }
+
+        private DateTime _lastTimeOnline = DateTime.MinValue;
     }
 
     public class DbPhraseData : IPhraseData

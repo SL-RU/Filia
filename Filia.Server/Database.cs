@@ -62,6 +62,18 @@ namespace Filia.Server
         {
             var v = DbConnection.Table<DbUserData>().ToList();
             return v;
-        } 
+        }
+
+        public bool UpdateUser(DbUserData user)
+        {
+            if (user == null)
+                throw new Exception("Null user object");
+            if (string.IsNullOrEmpty(user.Nickname) || user.Password == null)
+                throw new Exception("Null nick or password");
+
+            DbConnection.Update(user);
+
+            return true;
+        }
     }
 }

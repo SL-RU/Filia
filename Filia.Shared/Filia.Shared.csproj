@@ -46,6 +46,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="IFiliaUsers.cs" />
     <Compile Include="IFilia.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="FiliaData.cs" />

@@ -11,11 +11,5 @@ namespace Filia.Server
     {
         string GetAllData(Action<string> answer);
 
-        UserInformation GetUserInformation(string nickname);
-
-        Dictionary<string, bool> GetUsersOnlineStatus();
-
-        bool CreateNewUser(string nickname, string password, UserRole role);
-
     }
 }

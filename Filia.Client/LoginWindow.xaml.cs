@@ -106,6 +106,8 @@ namespace Filia.Client
                 if (s != null)
                 {
                     s.MoveFocus(new TraversalRequest(FocusNavigationDirection.Next));
+                    if (LoginButton.IsEnabled)
+                        LoginButton_Click(null, null);
                 }
 
                 e.Handled = true;
