@@ -26,7 +26,6 @@ namespace Filia.Client
     public partial class MainWindow : Window
     {
         public ServerSession ServerSession;
-        private DispatcherTimer _timer;
 
         public MainWindow(ServerSession serverSession)
         {
@@ -34,12 +33,7 @@ namespace Filia.Client
             if (serverSession != null && serverSession.IsLoggedIn)
             {
                 ServerSession = serverSession;
-                UsersStatus = new ObservableCollection<ShortUserInformation>(ServerSession.FiliaUsers.GetShortUsersInformation());
-                DataGrid.ItemsSource = UsersStatus;
-                _timer = new DispatcherTimer();
-                _timer.Tick += Timer_Tick;
-                _timer.Interval = TimeSpan.FromSeconds(5);
-                _timer.Start();
+                UsersList.SetServerSession(serverSession);
             }
             else
             {
@@ -47,53 +41,17 @@ namespace Filia.Client
             }
         }
 
-        private void Timer_Tick(object sender, EventArgs e)
-        {
-            var us = ServerSession.FiliaUsers.GetShortUsersInformation();
-            foreach (var u in us)
-            {
-                ShortUserInformation s;
-                //Считаем, что пользователь не может быть удалён - только заблокирован
-                if ((s = UsersStatus.FirstOrDefault(x => x.Nickname == u.Nickname)) != null)
-                {
-                    s.CopyProperties(u);
-                }
-                else
-                {
-                    UsersStatus.Add(u);
-                }
-            }
-        }
-
-        public ObservableCollection<ShortUserInformation> UsersStatus { get; set; }
-
-        private void getinfo_Click(object sender, RoutedEventArgs e)
-        {
-        }
-
         private void button_Click(object sender, RoutedEventArgs e)
         {
             if (nick.Text.Length > 0 && nick.Text.Length <= 16 && pswd.Text.Length > 0 && pswd.Text.Length <= 16)
                 ServerSession.FiliaUsers.CreateNewUser(nick.Text, pswd.Text, (UserRole) comboBox.SelectedIndex);
-            DataGrid.ItemsSource = UsersStatus;
+
+            UsersList.LoadUsers();
         }
 
         private void Window_Closing(object sender, CancelEventArgs e)
         {
-            _timer.Stop();
-            _timer.Tick -= Timer_Tick;
         }
 
-        private void DataGrid_MouseDoubleClick(object sender, MouseButtonEventArgs e)
-        {
-            if (DataGrid.SelectedItem != null)
-            {
-                var w = new Window
-                {
-                    Content = new UserEditor(ServerSession, ((ShortUserInformation) DataGrid.SelectedItem).Nickname)
-                };
-                w.Show();
-            }
-        }
     }
 }

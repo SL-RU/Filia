@@ -39,6 +39,7 @@ namespace Filia.Client.Users
                 MessageBox.Show("NOT ALLOWED!");
             }
             canc.Click += (sender, args) => Close();
+            PreviewKeyDown += (o, args) => { if (args.Key == Key.Escape) Close(); };
         }
     }
 }

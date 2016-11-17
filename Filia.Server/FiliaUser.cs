@@ -68,7 +68,7 @@ namespace Filia.Server
             u.About = i.About;
             u.Email = i.Email;
             if (v.Role == UserRole.Admin)
-                u.UploadImages = u.UploadImages;
+                u.UploadImages = i.UploadImages;
 
             Database.UpdateUser(u);
 

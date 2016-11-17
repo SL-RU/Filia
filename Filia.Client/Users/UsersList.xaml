@@ -1,0 +1,35 @@
+﻿<UserControl x:Class="Filia.Client.Users.UsersList"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:Filia.Client.Users"
+             mc:Ignorable="d" 
+             d:DesignHeight="300" d:DesignWidth="300" Unloaded="UserControl_Unloaded">
+    <UserControl.Resources>
+        <local:RoleToUserStatusConverter x:Shared="False" x:Key="RoleToUserStatusConverter"></local:RoleToUserStatusConverter>
+    </UserControl.Resources>
+    <Grid>
+        <DataGrid x:Name="DataGrid" HorizontalAlignment="Stretch"
+                  VerticalAlignment="Stretch"
+                  AutoGenerateColumns="False" MouseDoubleClick="DataGrid_MouseDoubleClick">
+            <DataGrid.RowStyle>
+                <Style TargetType="DataGridRow">
+                    <Style.Triggers>
+                        <DataTrigger Binding="{Binding Online}" Value="False">
+                            <Setter Property="Foreground" Value="Red"></Setter>
+                        </DataTrigger>
+                        <DataTrigger Binding="{Binding Online}" Value="True">
+                            <Setter Property="Foreground" Value="Green"></Setter>
+                        </DataTrigger>
+                    </Style.Triggers>
+                </Style>
+            </DataGrid.RowStyle>
+            <DataGrid.Columns>
+                <DataGridTextColumn Header="Nick" Binding="{Binding Nickname, Mode=OneWay}"></DataGridTextColumn>
+                <DataGridTextColumn Header="Role" Binding="{Binding Role, Mode=OneWay, Converter={StaticResource RoleToUserStatusConverter}}" Width="36"></DataGridTextColumn>
+                <DataGridTextColumn Header="Name" Binding="{Binding Realname, Mode=OneWay}"></DataGridTextColumn>
+            </DataGrid.Columns>
+        </DataGrid>
+    </Grid>
+</UserControl>
