@@ -33,6 +33,10 @@ namespace Filia.Client.Users
         public ObservableCollection<ShortUserInformation> UsersStatus { get; set; }
         private DispatcherTimer _timer;
 
+        public delegate void UserNickDelegaate(string nickname);
+        public event UserNickDelegaate OnUserSelected;
+        public event UserNickDelegaate OnUserClicked;
+
         public void SetServerSession(ServerSession ss)
         {
             ServerSession = ss;
@@ -77,22 +81,21 @@ namespace Filia.Client.Users
         private void DataGrid_MouseDoubleClick(object sender, MouseButtonEventArgs e)
         {
             if (DataGrid.SelectedItem == null) return;
-            var ur = new UserEditor(ServerSession, ((ShortUserInformation) DataGrid.SelectedItem).Nickname);
-            var w = new Window
-            {
-                Content = ur,
-                MinHeight = ur.MinHeight+35,
-                MinWidth = ur.MinWidth+40,
-                Width = ur.MinWidth,
-            };
-            w.PreviewKeyDown += (o, args) => { if (args.Key == Key.Escape) w.Close(); };
-            w.Show();
+            var ur = ((ShortUserInformation) DataGrid.SelectedItem).Nickname;
+            OnUserClicked?.Invoke(ur);
         }
 
         private void UserControl_Unloaded(object sender, RoutedEventArgs e)
         {
             _timer.Stop();
             _timer.Tick -= Timer_Tick;
+        }
+
+        private void DataGrid_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            if (DataGrid.SelectedItem == null) return;
+            var ur = ((ShortUserInformation)DataGrid.SelectedItem).Nickname;
+            OnUserSelected?.Invoke(ur);
         }
     }
 

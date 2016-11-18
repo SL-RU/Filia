@@ -89,6 +89,9 @@ namespace Filia.Server
             if (!Server.Instance.FiliaAuth.Users.ContainsKey(nickname))
                 return false;
 
+            if (password.Length > 32)
+                return false;
+
             var u = Server.Instance.FiliaAuth.Users[nickname];
             u.Password = FiliaAuthProvider.GetHash(password);
             Database.UpdateUser(u);
@@ -96,12 +99,29 @@ namespace Filia.Server
             return true;
         }
 
+        public bool CheckNickname(string nick)
+        {
+            var session = CheckUser();
+            if (session == null)
+                return false;
+            var v = Server.Instance.FiliaAuth.Users[session.Identity.Name];
+
+            if (v.Role != UserRole.Admin)
+                return false;
+            if (string.IsNullOrEmpty(nick))
+                return false;
+            if (nick.Length > 16 || !nick.Any(char.IsLetterOrDigit))
+                return false;
+
+            return !FiliaAuth.Users.ContainsKey(nick);
+        }
+
         public List<ShortUserInformation> GetShortUsersInformation()
         {
             var session = CheckUser();
             if (session == null)
                 return null;
-
+            
             return
                 FiliaAuth.Users.Values.Select(
                     x => new ShortUserInformation(x.Id, x.Nickname, x.Realname, x.Role, x.Online)).ToList();

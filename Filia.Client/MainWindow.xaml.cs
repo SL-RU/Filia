@@ -26,6 +26,7 @@ namespace Filia.Client
     public partial class MainWindow : Window
     {
         public ServerSession ServerSession;
+        public UsersManager UsersManager;
 
         public MainWindow(ServerSession serverSession)
         {
@@ -33,7 +34,8 @@ namespace Filia.Client
             if (serverSession != null && serverSession.IsLoggedIn)
             {
                 ServerSession = serverSession;
-                UsersList.SetServerSession(serverSession);
+                UsersManager = new UsersManager(ServerSession);
+                UsersManager.Show();
             }
             else
             {
@@ -41,16 +43,10 @@ namespace Filia.Client
             }
         }
 
-        private void button_Click(object sender, RoutedEventArgs e)
-        {
-            if (nick.Text.Length > 0 && nick.Text.Length <= 16 && pswd.Text.Length > 0 && pswd.Text.Length <= 16)
-                ServerSession.FiliaUsers.CreateNewUser(nick.Text, pswd.Text, (UserRole) comboBox.SelectedIndex);
-
-            UsersList.LoadUsers();
-        }
-
         private void Window_Closing(object sender, CancelEventArgs e)
         {
+            if (UsersManager != null)
+                UsersManager.Close();
         }
 
     }

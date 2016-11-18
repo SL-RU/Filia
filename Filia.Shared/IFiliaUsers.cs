@@ -22,5 +22,7 @@ namespace Filia.Server
         bool SetUserInformation(UserInformation information);
 
         bool ChangePassword(string nickname, string password);
+
+        bool CheckNickname(string nick);
     }
 }

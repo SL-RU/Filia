@@ -7,19 +7,5 @@
         xmlns:local="clr-namespace:Filia.Client"
         mc:Ignorable="d"
         Title="MainWindow" Height="350" Width="525" Closing="Window_Closing">
-    <Grid>
-        <us:UsersList x:Name="UsersList" Margin="0,23,0,0"></us:UsersList>
-        <Button x:Name="button" Content="Add user" HorizontalAlignment="Left" VerticalAlignment="Top" Width="75" Margin="371,0,0,0" Height="23" Click="button_Click"/>
-        <ComboBox x:Name="comboBox" HorizontalAlignment="Left" Margin="246,-2,0,0" VerticalAlignment="Top" Width="120" Height="25" SelectedIndex="3">
-            <ComboBoxItem Content="Admin"/>
-            <ComboBoxItem Content="Moderator"/>
-            <ComboBoxItem Content="Translator"/>
-            <ComboBoxItem Content="Editor"/>
-            <ComboBoxItem Content="Reader"/>
-            <ComboBoxItem Content="Blocked"/>
-            
-        </ComboBox>
-        <TextBox x:Name="nick" HorizontalAlignment="Left" Height="23" Margin="1,0,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="120"/>
-        <TextBox x:Name="pswd" HorizontalAlignment="Left" Height="23" Margin="121,0,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="120"/>
-    </Grid>
+    <Grid/>
 </Window>

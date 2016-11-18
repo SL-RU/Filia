@@ -1,0 +1,32 @@
+﻿<Window x:Class="Filia.Client.Users.UsersManager"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:Filia.Client.Users"
+        mc:Ignorable="d"
+        Title="Users" Height="300" Width="300">
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="20"/>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="10"/>
+            <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
+        <Menu>
+            <MenuItem Header="Me">
+                <MenuItem x:Name="editinfo" Header="Edit info" Click="editinfo_Click"></MenuItem>
+                <MenuItem x:Name="changepassword" Header="Change password" Click="changepassword_Click"></MenuItem>
+            </MenuItem>
+            <MenuItem Header="Admin">
+                <MenuItem x:Name="newuser" Header="New user" Click="newuser_Click"></MenuItem>
+            </MenuItem>
+        </Menu>
+        <Grid Grid.Row="1">
+            <local:UsersList x:Name="UsersList"></local:UsersList>
+        </Grid>
+        <GridSplitter Grid.Row="2" HorizontalAlignment="Stretch" />
+        <Grid x:Name="uegrid" Grid.Row="3" >
+        </Grid>
+    </Grid>
+</Window>

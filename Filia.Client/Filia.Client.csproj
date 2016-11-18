@@ -37,6 +37,8 @@
   <ItemGroup>
     <Reference Include="System" />
     <Reference Include="System.Data" />
+    <Reference Include="System.Drawing" />
+    <Reference Include="System.Windows.Forms" />
     <Reference Include="System.Xml" />
     <Reference Include="Microsoft.CSharp" />
     <Reference Include="System.Core" />
@@ -46,9 +48,11 @@
     <Reference Include="System.Xaml">
       <RequiredTargetFramework>4.0</RequiredTargetFramework>
     </Reference>
+    <Reference Include="UIAutomationProvider" />
     <Reference Include="WindowsBase" />
     <Reference Include="PresentationCore" />
     <Reference Include="PresentationFramework" />
+    <Reference Include="WindowsFormsIntegration" />
     <Reference Include="Zyan.Communication, Version=2.7.0.0, Culture=neutral, PublicKeyToken=022216e8e71b6602, processorArchitecture=MSIL">
       <HintPath>..\packages\Zyan.2.7.0\lib\net45\Zyan.Communication.dll</HintPath>
       <Private>True</Private>
@@ -63,8 +67,14 @@
     <Compile Include="Users\PasswordChanger.xaml.cs">
       <DependentUpon>PasswordChanger.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Users\UserCreator.xaml.cs">
+      <DependentUpon>UserCreator.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Users\UserEditor.xaml.cs">
       <DependentUpon>UserEditor.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Users\UsersManager.xaml.cs">
+      <DependentUpon>UsersManager.xaml</DependentUpon>
     </Compile>
     <Compile Include="Users\UsersList.xaml.cs">
       <DependentUpon>UsersList.xaml</DependentUpon>
@@ -92,7 +102,15 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
+    <Page Include="Users\UserCreator.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="Users\UserEditor.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Users\UsersManager.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

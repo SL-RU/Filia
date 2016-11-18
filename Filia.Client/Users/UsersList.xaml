@@ -12,23 +12,23 @@
     <Grid>
         <DataGrid x:Name="DataGrid" HorizontalAlignment="Stretch"
                   VerticalAlignment="Stretch"
-                  AutoGenerateColumns="False" MouseDoubleClick="DataGrid_MouseDoubleClick">
+                  AutoGenerateColumns="False" MouseDoubleClick="DataGrid_MouseDoubleClick" SelectionChanged="DataGrid_SelectionChanged">
             <DataGrid.RowStyle>
-                <Style TargetType="DataGridRow">
+                <Style TargetType="{x:Type DataGridRow}">
                     <Style.Triggers>
                         <DataTrigger Binding="{Binding Online}" Value="False">
-                            <Setter Property="Foreground" Value="Red"></Setter>
+                            <Setter Property="Foreground" Value="Red"/>
                         </DataTrigger>
                         <DataTrigger Binding="{Binding Online}" Value="True">
-                            <Setter Property="Foreground" Value="Green"></Setter>
+                            <Setter Property="Foreground" Value="Green"/>
                         </DataTrigger>
                     </Style.Triggers>
                 </Style>
             </DataGrid.RowStyle>
             <DataGrid.Columns>
-                <DataGridTextColumn Header="Nick" Binding="{Binding Nickname, Mode=OneWay}"></DataGridTextColumn>
-                <DataGridTextColumn Header="Role" Binding="{Binding Role, Mode=OneWay, Converter={StaticResource RoleToUserStatusConverter}}" Width="36"></DataGridTextColumn>
-                <DataGridTextColumn Header="Name" Binding="{Binding Realname, Mode=OneWay}"></DataGridTextColumn>
+                <DataGridTextColumn Header="Nick" Binding="{Binding Nickname, Mode=OneWay}"/>
+                <DataGridTextColumn Header="Role" Binding="{Binding Role, Converter={StaticResource RoleToUserStatusConverter}, Mode=OneWay}" Width="36"/>
+                <DataGridTextColumn Header="Name" Binding="{Binding Realname, Mode=OneWay}"/>
             </DataGrid.Columns>
         </DataGrid>
     </Grid>
